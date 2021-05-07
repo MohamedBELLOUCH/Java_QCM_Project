@@ -1,7 +1,7 @@
+package ProjectQCM;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -12,8 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.JProgressBar;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -26,6 +25,7 @@ public class Quiz implements ActionListener {
 	JPanel footer = new JPanel();
 	JPanel buttons = new JPanel();
 	JPanel suivant_panel = new JPanel();
+	JLabel timer_label = new JLabel(); // Timer Label
 	JLabel header_label = new JLabel();
 	JLabel question_label = new JLabel();
 	JButton Option1 = new JButton();
@@ -33,17 +33,34 @@ public class Quiz implements ActionListener {
 	JButton Option3 = new JButton();
 	JButton Option4 = new JButton();
 	JButton suivant = new JButton();
+	JProgressBar bar = new JProgressBar(0,10); // la barre de temps
+	int temps_dispo = 10;
+	int temps_restant = temps_dispo;
 	
-	Quiz(){
+	
+	/*Timer timer = new Timer(1000,new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			temps_restant--;
+			timer_label.setText(Integer.toString(temps_restant));
+			
+		}
+	});*/
+	
+	
+	
+	public Quiz(){
 		
 		//Set margins
 		Border border = header_label.getBorder();
-		Border margin1 = new EmptyBorder(50,50,10,50);
+		Border margin1 = new EmptyBorder(40,50,20,50);
 		Border margin2 = new EmptyBorder(0,60,20,60);
 		header_label.setBorder(new CompoundBorder(border, margin1));
 		question_label.setBorder(new CompoundBorder(border, margin2));
 		buttons.setBorder(new CompoundBorder(border, new EmptyBorder(10,100,20,100)));
 		suivant_panel.setBorder(new CompoundBorder(border, new EmptyBorder(0,0,20,60)));
+		timer_label.setBorder(new CompoundBorder(border, new EmptyBorder(15,0,0,80)));
 		
 		//Header
 		header.setPreferredSize(new Dimension(100,100));
@@ -56,6 +73,23 @@ public class Quiz implements ActionListener {
 		header_label.setOpaque(true);		
 		header.setLayout(new BorderLayout());
 		header.add(header_label, BorderLayout.WEST);
+		
+		//Timer
+		
+		timer_label.setText(Integer.toString(temps_restant));
+		timer_label.setForeground(new Color(0x8A4FFF));
+		timer_label.setFont(new Font("Quicksand",Font.PLAIN,30));
+		header.add(timer_label,BorderLayout.EAST);
+		
+		
+		//Barre de temps
+		bar.setValue(0);
+		bar.setBounds(0,0,100,50);
+		bar.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+		bar.setForeground(new Color(0x8A4FFF));
+		
+		header.add(bar,BorderLayout.SOUTH);
+		
 		
 		//Questions Section
 		section.setPreferredSize(new Dimension(100,100));
@@ -125,6 +159,7 @@ public class Quiz implements ActionListener {
 		buttons.add(Option4);
 		
 		
+		 
 		
 		//Footer Section
 		footer.setPreferredSize(new Dimension(100,100));
@@ -147,9 +182,28 @@ public class Quiz implements ActionListener {
 		frame.add(header, BorderLayout.NORTH);
 		frame.add(section, BorderLayout.CENTER);
 		frame.add(footer, BorderLayout.SOUTH);
+		count();
+		
 		
 	}
 	
+	public void count(){
+		int counter = 0;
+		while (counter <= 10) {
+			bar.setValue(counter);
+			temps_restant = temps_dispo - counter;
+			timer_label.setText(Integer.toString(temps_restant));
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			counter += 1;
+			
+		}
+		
+	}
 	
 
 	@Override

@@ -58,9 +58,9 @@ public class TeacherProfilePanel extends JPanel{
 	
 	
 	
-	ImageIcon icon = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\QuizSystem\\src\\img\\user.png");
+	ImageIcon icon = new ImageIcon("C:\\Users\\User\\eclipse-workspace\\QuizSystem\\src\\img\\chalkboard-teacher-solid.png");
 	Image image1 = icon.getImage();
-	ImageIcon user_icon = new ImageIcon(image1.getScaledInstance(90, 90, Image.SCALE_SMOOTH));
+	ImageIcon user_icon = new ImageIcon(image1.getScaledInstance(110, 90, Image.SCALE_SMOOTH));
 	
 	static JButton button = new JButton("Créer un nouveau QCM");
 	

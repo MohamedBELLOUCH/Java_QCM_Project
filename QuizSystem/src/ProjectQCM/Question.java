@@ -8,7 +8,8 @@ public class Question implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	public String enonce; //Enoncé de la question
-	public String[] choix; //Liste des choix
+	public int nbrChoix;
+	public String[] choix = new String[nbrChoix]; //Liste des choix
 	public int reponse; //Numero de la reponse correcte
 	public float note_question; //Note de question
 	public int duree_question;

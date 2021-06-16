@@ -140,7 +140,7 @@ public class Eleve extends Personne implements Serializable{
 		//d'ou la necessite de creer une copie;
 	}
 	
-	public Eleve noter(String login, String identifiant_exam, float note)
+	public static Eleve noter(String login, String identifiant_exam, float note)
 			throws ClassNotFoundException {
 		// TODO Modifier la note de l'élève ayant ce login
 		// Retourne 1 si la modification effectuée, et 0 sinon

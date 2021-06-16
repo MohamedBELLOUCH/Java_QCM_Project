@@ -7,6 +7,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 
 public class Professeur extends Personne implements Serializable{
@@ -27,6 +28,32 @@ public class Professeur extends Personne implements Serializable{
 	public Professeur(String nom, String prenom, String login, String mot_de_passe) throws ClassNotFoundException{
 		//Constructeur
 		super(nom, prenom, login, mot_de_passe, chemin_fichier, chemin_fichier_temp);
+	}
+	
+	public ArrayList<Examen> listeExamens() throws ClassNotFoundException {
+		//Retourne un ArrayList contenant les examens disponibles pour l'eleve
+		ArrayList<Examen> examens = new ArrayList<Examen>();
+		try {
+			FileInputStream fis = new FileInputStream(Examen.fichier_examens);
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			if (vide(Eleve.chemin_fichier_examens) == 1 || fis.available() == 0) {
+				System.out.println("Le fichier d'Examens est vide");
+			}
+			else {
+				Examen examen;
+				while (fis.available() > 0) {
+					examen = (Examen) ois.readObject();
+					if (examen.login_professeur.equals(this.login))
+						examens.add(examen);
+				}
+			}
+			fis.close();
+			return examens;
+			
+		} catch (IOException e) {
+			System.out.println("Erreur produite dans la création du liste des exams !");
+			return null;
+		}
 	}
 	
 	public static boolean login_existe(String login) throws ClassNotFoundException {

@@ -29,7 +29,9 @@ public class Main {
 	CardLayout cl = new CardLayout();
 	
 	ProfilePanel profilePanel;
+	TeacherProfilePanel teacherProfilePanel;
 	QuizPanel quizPanel;
+		
 	
 	Examen selectedExamen;
 	
@@ -85,37 +87,14 @@ public class Main {
 				Eleve elv = (Eleve) loginPanelEleve.user;
 				
 				if (!(elv == null)) {
-						/*String[] choix1 = {"A Gas Giant (like Jupiter)", "An Exoplanet (like HD 80606b)",
-								"A Dwarf Planet (like Ceres)", "A Terrestrial Planet (like Earth)"};
-						String[] choix2 = {"Jupiter", "Saturn", "Earth", "Venus"};
-						String[] choix3 = {"Rust", "Chili Powder", "Chlorophyll", "Lava"};
-						String[] choix4 = {"Carbon Monoxide", "Iron Oxide", "Carbon Dioxide", "Water"};
-						String[] choix5 = {"Sojourner","Spirit","Curiosity","Endeavour"};
-						String[] choix6 = {"Perseverance","Insight","Pathfinder","Viking"};
 						
-						String[] logins = {"aymane.ouahbi"};
-						
-						Question[] questions = {new Question("What type of planet is Mars ?", choix1, 4, (float) 1),
-								new Question("What planet's orbit is closest to the orbit of Mars ?", choix2, 3, (float) 1),
-								new Question("Which substance is primarily responsible for the color of Mars ?", choix3, 1, (float) 1),
-								new Question("The chemical name for rust is ....", choix4, 2, (float) 1),
-								new Question("Which of the following is NOT a name of a Mars rover ?", choix5, 4, (float) 1),
-								new Question("Which NASA mission most recently landed on Mars?", choix6, 1, (float) 1),
-						};
-						
-						try {
-							new Examen("Planet Mars", "Jack", "Exam 1", "mars",
-									 false, 100,
-									6, questions,
-									logins,"08/06/2021","22:58");
-							elv.noter(elv.login, "mars", (float) -1);
-						} catch (ClassNotFoundException e2) {
+						/*try {
+							elv.noter(elv.login, "capitals", (float) -1);
+						} catch (ClassNotFoundException e3) {
 							// TODO Auto-generated catch block
-							e2.printStackTrace();
+							e3.printStackTrace();
 						}*/
-						
-			
-											
+					
 						try {
 							profilePanel = new ProfilePanel(elv);
 							container.add(profilePanel, "Profile Panel");
@@ -129,6 +108,7 @@ public class Main {
 							
 							
 							profilePanel.nextTable.addMouseListener(new MouseListener() {
+								@SuppressWarnings("deprecation")
 								@Override
 								public void mouseClicked(MouseEvent e) {
 									// TODO Auto-generated method stub
@@ -148,8 +128,17 @@ public class Main {
 									
 									LocalTime time1 = LocalTime.now();
 							        LocalTime time2 = LocalTime.of(Integer.valueOf(selectedExamen.heure.substring(0, 2)), Integer.valueOf(selectedExamen.heure.substring(3, 5)), 00);
-									
-									if ((!(selectedExamen == null)) && (d1.compareTo(d2)>0 || (d1.compareTo(d2)== 0 && time1.isAfter(time2)))) {		
+							        System.out.println(time1);
+							        System.out.println(time2);
+							        System.out.println(time1.isAfter(time2));
+							        System.out.println(d1);
+							        d2.setYear(d1.getYear());
+							        System.out.println(d2);
+							        System.out.println(d1.after(d2));
+							        
+							        
+							        
+									if ((!(selectedExamen == null)) && (d1.after(d2) || (d1.compareTo(d2)== 0 && time1.isAfter(time2)))) {		
 										System.out.println(selectedExamen.matiere);
 										profilePanel.button.addActionListener(new ActionListener() {
 											@Override
@@ -227,6 +216,33 @@ public class Main {
 				cl.show(container, "SignUp Panel Prof");
 			}
 		});
+		loginPanelProf.login.addActionListener(new ActionListener() {	
+			@Override
+			public void actionPerformed(ActionEvent arg1) {
+				loginPanelProf.loginUser();
+				Professeur prof = (Professeur) loginPanelProf.user;
+				if (prof != null) {
+					try {
+						teacherProfilePanel = new TeacherProfilePanel(prof);
+						container.add(teacherProfilePanel, "Teacher Profile Panel");
+						cl.show(container, "Teacher Profile Panel");
+						teacherProfilePanel.button.addActionListener(new ActionListener() {
+							@Override
+							public void actionPerformed(ActionEvent e) {
+								// TODO Auto-generated method stub
+								new CreatingExamFrame(prof.login);
+								frame.dispose();
+								}
+						});
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
+				}
+			});
+		
 		
 		
 		
@@ -242,7 +258,8 @@ public class Main {
 
 	public static void main(String[] args) throws ClassNotFoundException, IOException {
 		// TODO Auto-generated method stub	
-		new Main();		
+		new Main();
+		//new CreatingExamFrame();
 	}
 
 }

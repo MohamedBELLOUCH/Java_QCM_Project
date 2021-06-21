@@ -89,7 +89,7 @@ public class Main {
 				if (!(elv == null)) {
 						
 						/*try {
-							elv.noter(elv.login, "capitals", (float) -1);
+							elv.noter(elv.login, "ID", (float) -1);
 						} catch (ClassNotFoundException e3) {
 							// TODO Auto-generated catch block
 							e3.printStackTrace();

@@ -321,6 +321,8 @@ public class QuizPanel extends JPanel implements ActionListener {
 			Option4.setBackground(new Color(0xE5ECF4));
 			
 			if (this.examen.mode_sequentiel)
+				temps_dispo = this.examen.questions[i].duree_question;
+				timer.stop();
 				count();
 				
 		}

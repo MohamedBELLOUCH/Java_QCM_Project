@@ -61,7 +61,7 @@ public class Eleve extends Personne implements Serializable{
 			
 		} catch (IOException e) {
 			System.out.println("Erreur produite dans la création du liste des exams !");
-			return null;
+			return examens;
 		}
 	}
 	

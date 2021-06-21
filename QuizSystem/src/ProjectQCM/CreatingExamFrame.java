@@ -320,7 +320,7 @@ public class CreatingExamFrame extends JFrame implements ActionListener {
 		QuestionPanel(int numero) {
 			
 			this.numero = numero;
-			this.nbr_choix = 3;
+			this.nbr_choix = 4;
 			this.reponse = 0;
 			this.choix = new String[6];
 			
@@ -937,11 +937,14 @@ public class CreatingExamFrame extends JFrame implements ActionListener {
 		if ( q > 0 && q < nombre_questions-1) {
 			
 			if ( e.getSource() == TabPanelsQuestions[q].suivant) {
-				String[] choix = new String[TabPanelsQuestions[q].nbr_choix];
-				questions[q].nbrChoix = TabPanelsQuestions[q].nbr_choix;
+				String[] choix = TabPanelsQuestions[q].choix;
+				choix[TabPanelsQuestions[q].ch] = TabPanelsQuestions[q].choixArea.getText();
+				//String[] choix = new String[TabPanelsQuestions[q].nbr_choix];
+				//questions[q].nbrChoix = TabPanelsQuestions[q].nbr_choix;
 				for ( int i = 0; i < TabPanelsQuestions[q].nbr_choix; i++) choix[i] = TabPanelsQuestions[q].choix[i];
 				int reponse = TabPanelsQuestions[q].reponse+1;
 				int note = Integer.parseInt(TabPanelsQuestions[q].noteField.getText());
+				questions[q].nbrChoix = TabPanelsQuestions[q].nbr_choix;
 				questions[q] = new Question(TabPanelsQuestions[q].enonceArea.getText(), choix, reponse, note);
 				questions[q].duree_question = Integer.parseInt(TabPanelsQuestions[q].minutes.valeur.getText())*60 +
 									Integer.parseInt(TabPanelsQuestions[q].secondes.valeur.getText());
@@ -956,13 +959,15 @@ public class CreatingExamFrame extends JFrame implements ActionListener {
 		}
 		
 		if ( q == nombre_questions-1 ) {
-			
 			if ( e.getSource() == TabPanelsQuestions[q].suivant) {
-				String[] choix = new String[TabPanelsQuestions[q].nbr_choix];
-				questions[q].nbrChoix = TabPanelsQuestions[q].nbr_choix;
+				String[] choix = TabPanelsQuestions[q].choix;
+				choix[TabPanelsQuestions[q].ch] = TabPanelsQuestions[q].choixArea.getText();
+				//String[] choix = new String[TabPanelsQuestions[q].nbr_choix];
+				//questions[q].nbrChoix = TabPanelsQuestions[q].nbr_choix;
 				for ( int i = 0; i < TabPanelsQuestions[q].nbr_choix; i++) choix[i] = TabPanelsQuestions[q].choix[i];
 				int reponse = TabPanelsQuestions[q].reponse+1;
 				int note = Integer.parseInt(TabPanelsQuestions[q].noteField.getText());
+				questions[q].nbrChoix = TabPanelsQuestions[q].nbr_choix;
 				questions[q] = new Question(TabPanelsQuestions[q].enonceArea.getText(), choix, reponse, note);
 				questions[q].duree_question = Integer.parseInt(TabPanelsQuestions[q].minutes.valeur.getText())*60 +
 						Integer.parseInt(TabPanelsQuestions[q].secondes.valeur.getText());
